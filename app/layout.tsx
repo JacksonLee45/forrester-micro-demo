@@ -1,8 +1,8 @@
 import "./globals.css";
-import { Inter } from "next/font/google";
+import { Inter, Almarai } from "next/font/google";
 
 export const metadata = {
-  title: "Micro Product Launch",
+  title: "Micro - Products",
   description: "Discover our latest innovation - a revolutionary product that changes everything.",
 };
 
@@ -12,14 +12,21 @@ const inter = Inter({
   display: "swap",
 });
 
+const almarai = Almarai({
+  weight: ["700"],
+  variable: "--font-almarai",
+  subsets: ["latin"],
+  display: "swap",
+});
+
 function Footer() {
   return (
-    <footer className="bg-gray-900 text-white border-t border-gray-800">
+    <footer className="bg-black text-white border-t border-gray-800">
       <div className="container mx-auto px-5 py-16">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
-            <h3 className="text-lg font-bold mb-4">Product</h3>
-            <ul className="space-y-2 text-gray-400">
+            <h3 className="text-sm font-bold mb-4 uppercase tracking-wider">Product</h3>
+            <ul className="space-y-2 text-sm text-gray-400">
               <li><a href="#" className="hover:text-white transition-colors">Features</a></li>
               <li><a href="#" className="hover:text-white transition-colors">Pricing</a></li>
               <li><a href="#" className="hover:text-white transition-colors">FAQ</a></li>
@@ -27,8 +34,8 @@ function Footer() {
             </ul>
           </div>
           <div>
-            <h3 className="text-lg font-bold mb-4">Company</h3>
-            <ul className="space-y-2 text-gray-400">
+            <h3 className="text-sm font-bold mb-4 uppercase tracking-wider">Company</h3>
+            <ul className="space-y-2 text-sm text-gray-400">
               <li><a href="#" className="hover:text-white transition-colors">About</a></li>
               <li><a href="#" className="hover:text-white transition-colors">Blog</a></li>
               <li><a href="#" className="hover:text-white transition-colors">Careers</a></li>
@@ -36,8 +43,8 @@ function Footer() {
             </ul>
           </div>
           <div>
-            <h3 className="text-lg font-bold mb-4">Resources</h3>
-            <ul className="space-y-2 text-gray-400">
+            <h3 className="text-sm font-bold mb-4 uppercase tracking-wider">Resources</h3>
+            <ul className="space-y-2 text-sm text-gray-400">
               <li><a href="#" className="hover:text-white transition-colors">Documentation</a></li>
               <li><a href="#" className="hover:text-white transition-colors">Support</a></li>
               <li><a href="#" className="hover:text-white transition-colors">Community</a></li>
@@ -45,8 +52,8 @@ function Footer() {
             </ul>
           </div>
           <div>
-            <h3 className="text-lg font-bold mb-4">Legal</h3>
-            <ul className="space-y-2 text-gray-400">
+            <h3 className="text-sm font-bold mb-4 uppercase tracking-wider">Legal</h3>
+            <ul className="space-y-2 text-sm text-gray-400">
               <li><a href="#" className="hover:text-white transition-colors">Privacy</a></li>
               <li><a href="#" className="hover:text-white transition-colors">Terms</a></li>
               <li><a href="#" className="hover:text-white transition-colors">Security</a></li>
@@ -54,7 +61,7 @@ function Footer() {
             </ul>
           </div>
         </div>
-        <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400 text-sm">
+        <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-500 text-sm">
           <p>&copy; 2025 Micro. All rights reserved.</p>
         </div>
       </div>
@@ -68,8 +75,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={inter.variable}>
-      <body>
+    <html lang="en" className={`${inter.variable} ${almarai.variable}`}>
+      <body className="bg-black">
         <section className="min-h-screen">
           <main>{children}</main>
           <Footer />

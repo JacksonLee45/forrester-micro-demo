@@ -4,11 +4,8 @@ export default function ProductGallery({
   products: any[];
 }) {
   return (
-    <section className="mb-32">
-      <h2 className="mb-12 text-4xl md:text-5xl font-bold tracking-tighter leading-tight text-center">
-        Available Now
-      </h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+    <section className="mb-20">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-0">
         {products.map((product, index) => {
           // Handle Frontify image format (array of objects)
           let imageUrl = "";
@@ -23,18 +20,27 @@ export default function ProductGallery({
           }
 
           return (
-            <div key={index} className="group">
+            <div key={index} className="group relative bg-gradient-to-b from-gray-900 to-black">
               {imageUrl && (
-                <div className="mb-6 overflow-hidden rounded-lg bg-gray-100">
+                <div className="aspect-square overflow-hidden bg-gradient-to-br from-gray-800 to-gray-900">
                   <img 
                     src={imageUrl} 
                     alt={product.title}
-                    className="w-full h-auto shadow-sm transition-transform duration-300 group-hover:scale-105"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>
               )}
-              <h3 className="text-2xl md:text-3xl font-bold mb-3">{product.title}</h3>
-              <p className="text-lg text-gray-600 leading-relaxed">{product.description}</p>
+              <div className="p-8">
+                <h3 className="text-2xl font-bold mb-4 text-white uppercase tracking-wide">
+                  {product.title}
+                </h3>
+                <p className="text-base text-gray-400 leading-relaxed mb-6">
+                  {product.description}
+                </p>
+                <button className="border border-white text-white px-6 py-2 text-sm uppercase tracking-wider hover:bg-white hover:text-black transition-colors duration-300">
+                  Explore
+                </button>
+              </div>
             </div>
           );
         })}
