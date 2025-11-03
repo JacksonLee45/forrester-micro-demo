@@ -5,10 +5,10 @@ export default function ProductGallery({
 }) {
   return (
     <section className="mb-32">
-      <h2 className="mb-12 text-5xl md:text-6xl font-bold tracking-tighter leading-tight text-center">
-        Our Products
+      <h2 className="mb-12 text-4xl md:text-5xl font-bold tracking-tighter leading-tight text-center">
+        Available Now
       </h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
         {products.map((product, index) => {
           // Handle Frontify image format (array of objects)
           let imageUrl = "";
@@ -25,16 +25,16 @@ export default function ProductGallery({
           return (
             <div key={index} className="group">
               {imageUrl && (
-                <div className="mb-4 overflow-hidden">
+                <div className="mb-6 overflow-hidden rounded-lg bg-gray-100">
                   <img 
                     src={imageUrl} 
                     alt={product.title}
-                    className="w-full h-auto shadow-small transition-transform duration-200 group-hover:scale-105"
+                    className="w-full h-auto shadow-sm transition-transform duration-300 group-hover:scale-105"
                   />
                 </div>
               )}
-              <h3 className="text-2xl font-bold mb-2">{product.title}</h3>
-              <p className="text-lg text-gray-600">{product.description}</p>
+              <h3 className="text-2xl md:text-3xl font-bold mb-3">{product.title}</h3>
+              <p className="text-lg text-gray-600 leading-relaxed">{product.description}</p>
             </div>
           );
         })}

@@ -4,13 +4,16 @@ import ProductGallery from "./product-gallery";
 
 function Intro() {
   return (
-    <section className="flex-col md:flex-row flex items-center md:justify-between mt-16 mb-16 md:mb-12">
-      <h1 className="text-6xl md:text-8xl font-bold tracking-tighter leading-tight md:pr-8">
-        Micro Product Launch
+    <section className="text-center mt-16 mb-20 md:mb-24">
+      <h1 className="text-6xl md:text-8xl font-bold tracking-tighter leading-tight mb-2">
+        Micro
       </h1>
-      <h2 className="text-center md:text-left text-lg mt-5 md:pl-8">
-        Discover our latest innovation - a revolutionary product that changes everything.
+      <h2 className="text-3xl md:text-4xl font-light tracking-wide text-gray-500 mb-6">
+        Product Launch
       </h2>
+      <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto">
+        Discover our latest innovation - a revolutionary product that changes everything.
+      </p>
     </section>
   );
 }
