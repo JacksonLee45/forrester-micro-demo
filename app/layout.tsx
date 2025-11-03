@@ -1,10 +1,10 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
-import { EXAMPLE_PATH, CMS_NAME } from "@/lib/constants";
+import { EXAMPLE_PATH } from "@/lib/constants";
 
 export const metadata = {
-  title: `Next.js and ${CMS_NAME} Example`,
-  description: `This is a blog built with Next.js and ${CMS_NAME}.`,
+  title: "Micro Product Launch",
+  description: "Discover our latest innovation - a revolutionary product that changes everything.",
 };
 
 const inter = Inter({
