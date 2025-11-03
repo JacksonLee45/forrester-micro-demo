@@ -4,9 +4,11 @@ const WEBSITE_CONTENT_FIELDS = `
   headingDescription
   imagesCollection {
     items {
-      title
-      image
-      description
+      ... on Product {
+        title
+        image
+        description
+      }
     }
   }
 `;
