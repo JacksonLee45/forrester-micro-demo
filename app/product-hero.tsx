@@ -7,18 +7,19 @@ export default function ProductHero({
   image: any;
   description: string;
 }) {
-  // Parse image if it's a JSON string, otherwise use as-is
+  // Handle Frontify image format (array of objects)
   let imageUrl = "";
   
-  if (typeof image === "string") {
-    try {
-      const parsedImage = JSON.parse(image);
-      imageUrl = parsedImage.url || parsedImage.src || "";
-    } catch {
-      imageUrl = image;
-    }
-  } else if (image && typeof image === "object") {
-    imageUrl = image.url || image.src || "";
+  if (Array.isArray(image) && image.length > 0) {
+    // Frontify returns an array, get the first image
+    const firstImage = image[0];
+    imageUrl = firstImage.src || firstImage.preview_url || firstImage.dynamic_url || "";
+  } else if (typeof image === "object" && image !== null) {
+    // Fallback for object format
+    imageUrl = image.src || image.url || image.preview_url || "";
+  } else if (typeof image === "string") {
+    // Direct URL string
+    imageUrl = image;
   }
 
   return (

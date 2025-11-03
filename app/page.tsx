@@ -1,6 +1,6 @@
 import { draftMode } from "next/headers";
-import { getProduct } from "@/lib/api";
-import ProductHero from "./product-hero";
+import { getAllProducts } from "@/lib/api";
+import ProductGallery from "./product-gallery";
 
 function Intro() {
   return (
@@ -17,17 +17,13 @@ function Intro() {
 
 export default async function Page() {
   const { isEnabled } = await draftMode();
-  const product = await getProduct(isEnabled);
+  const products = await getAllProducts(isEnabled);
 
   return (
     <div className="container mx-auto px-5">
       <Intro />
-      {product && (
-        <ProductHero
-          title={product.title}
-          image={product.image}
-          description={product.description}
-        />
+      {products && products.length > 0 && (
+        <ProductGallery products={products} />
       )}
     </div>
   );

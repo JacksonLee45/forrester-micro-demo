@@ -27,6 +27,10 @@ function extractProduct(fetchResponse: any): any {
   return fetchResponse?.data?.productCollection?.items?.[0];
 }
 
+function extractProducts(fetchResponse: any): any[] {
+  return fetchResponse?.data?.productCollection?.items || [];
+}
+
 export async function getProduct(isDraftMode: boolean): Promise<any> {
   const entry = await fetchGraphQL(
     `query {
@@ -41,4 +45,18 @@ export async function getProduct(isDraftMode: boolean): Promise<any> {
     isDraftMode,
   );
   return extractProduct(entry);
+}
+
+export async function getAllProducts(isDraftMode: boolean): Promise<any[]> {
+  const entries = await fetchGraphQL(
+    `query {
+      productCollection(preview: ${isDraftMode ? "true" : "false"}) {
+        items {
+          ${PRODUCT_GRAPHQL_FIELDS}
+        }
+      }
+    }`,
+    isDraftMode,
+  );
+  return extractProducts(entries);
 }
