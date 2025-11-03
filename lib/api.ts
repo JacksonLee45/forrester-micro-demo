@@ -1,7 +1,14 @@
-const PRODUCT_GRAPHQL_FIELDS = `
-  title
-  image
-  description
+const WEBSITE_CONTENT_FIELDS = `
+  heading
+  subHeading
+  headingDescription
+  imagesCollection {
+    items {
+      title
+      image
+      description
+    }
+  }
 `;
 
 async function fetchGraphQL(query: string, preview = false): Promise<any> {
@@ -18,45 +25,27 @@ async function fetchGraphQL(query: string, preview = false): Promise<any> {
         }`,
       },
       body: JSON.stringify({ query }),
-      next: { tags: ["products"] },
+      next: { tags: ["website"] },
     },
   ).then((response) => response.json());
 }
 
-function extractProduct(fetchResponse: any): any {
-  return fetchResponse?.data?.productCollection?.items?.[0];
+function extractWebsiteContent(fetchResponse: any): any {
+  return fetchResponse?.data?.microWebsiteContentCollection?.items?.[0];
 }
 
-function extractProducts(fetchResponse: any): any[] {
-  return fetchResponse?.data?.productCollection?.items || [];
-}
-
-export async function getProduct(isDraftMode: boolean): Promise<any> {
+export async function getWebsiteContent(isDraftMode: boolean): Promise<any> {
   const entry = await fetchGraphQL(
     `query {
-      productCollection(limit: 1, preview: ${
+      microWebsiteContentCollection(limit: 1, preview: ${
         isDraftMode ? "true" : "false"
       }) {
         items {
-          ${PRODUCT_GRAPHQL_FIELDS}
+          ${WEBSITE_CONTENT_FIELDS}
         }
       }
     }`,
     isDraftMode,
   );
-  return extractProduct(entry);
-}
-
-export async function getAllProducts(isDraftMode: boolean): Promise<any[]> {
-  const entries = await fetchGraphQL(
-    `query {
-      productCollection(preview: ${isDraftMode ? "true" : "false"}) {
-        items {
-          ${PRODUCT_GRAPHQL_FIELDS}
-        }
-      }
-    }`,
-    isDraftMode,
-  );
-  return extractProducts(entries);
+  return extractWebsiteContent(entry);
 }
