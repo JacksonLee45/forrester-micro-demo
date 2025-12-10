@@ -15,7 +15,7 @@ const inter = Inter({
 const almarai = Almarai({
   weight: ["700"],
   variable: "--font-almarai",
-  subsets: ["latin"],
+  subsets: ["arabic"],  // Changed from "latin" to "arabic"
   display: "swap",
 });
 
