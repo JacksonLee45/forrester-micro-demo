@@ -1,10 +1,13 @@
 import { draftMode } from "next/headers";
 import { getWebsiteContent } from "@/lib/api";
+import { getFirstVideo } from "@/lib/video-api";
 import ProductGallery from "./product-gallery";
+import FrontifyVideo from "./frontify-video";
 
 export default async function Page() {
   const { isEnabled } = await draftMode();
   const content = await getWebsiteContent(isEnabled);
+  const video = await getFirstVideo(isEnabled);
 
   if (!content) {
     return (
@@ -43,6 +46,11 @@ export default async function Page() {
         </section>
         {products.length > 0 && (
           <ProductGallery products={products} />
+        )}
+        {video && (
+          <div className="mt-24">
+            <FrontifyVideo videoData={video.video} />
+          </div>
         )}
       </div>
     </div>
