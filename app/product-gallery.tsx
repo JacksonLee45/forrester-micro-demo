@@ -7,13 +7,22 @@ export default function ProductGallery({
     <section className="mb-20">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-0">
         {products.map((product, index) => {
-          // Handle Frontify image format
+          // Handle both Contentful and Contentstack Frontify formats
           let imageUrl = "";
           
           // Check if image exists and is an array (Frontify format)
           if (product.image && Array.isArray(product.image) && product.image.length > 0) {
             const firstImage = product.image[0];
-            imageUrl = firstImage.src || firstImage.preview_url || firstImage.dynamic_url || "";
+            
+            // Contentful format: uses snake_case (src, preview_url, dynamic_url)
+            // Contentstack format: uses camelCase (previewUrl, dynamicPreviewUrl, downloadUrl)
+            imageUrl = firstImage.src || 
+                       firstImage.preview_url || 
+                       firstImage.dynamic_url ||
+                       firstImage.previewUrl ||
+                       firstImage.dynamicPreviewUrl ||
+                       firstImage.downloadUrl ||
+                       "";
           }
 
           return (

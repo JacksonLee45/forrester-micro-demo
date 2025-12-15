@@ -4,9 +4,14 @@ interface FrontifyVideoItem {
   src?: string;
   preview_url?: string;
   dynamic_url?: string;
+  // Contentstack format (camelCase)
+  previewUrl?: string;
+  dynamicPreviewUrl?: string;
+  downloadUrl?: string;
   title?: string;
   name?: string;
   type?: string;
+  extension?: string;
   [key: string]: any;
 }
 
@@ -25,8 +30,35 @@ export default function FrontifyVideo({ videoData }: { videoData: FrontifyVideoD
     return null;
   }
 
-  // Extract the video URL - Frontify uses 'src' or 'preview_url'
-  const videoUrl = videoItem.src || videoItem.preview_url || videoItem.dynamic_url;
+  console.log("=== FRONTIFY VIDEO COMPONENT ===");
+  console.log("Video item:", videoItem);
+  console.log("Type:", videoItem.type);
+  console.log("Extension:", videoItem.extension);
+
+  // For videos, prioritize downloadUrl (actual video file) over previewUrl (thumbnail)
+  let videoUrl: string | undefined = "";
+  
+  if (videoItem.type === "Video" || videoItem.extension === "mp4") {
+    // It's a video - use downloadUrl first (the actual video file)
+    videoUrl = videoItem.downloadUrl || 
+               videoItem.src || 
+               videoItem.dynamicPreviewUrl ||
+               videoItem.dynamic_url ||
+               videoItem.previewUrl ||
+               videoItem.preview_url;
+    
+    console.log("Video URL (prioritizing downloadUrl):", videoUrl);
+  } else {
+    // Not a video - use preview URLs
+    videoUrl = videoItem.src || 
+               videoItem.preview_url || 
+               videoItem.dynamic_url ||
+               videoItem.previewUrl ||
+               videoItem.dynamicPreviewUrl ||
+               videoItem.downloadUrl;
+    
+    console.log("Media URL:", videoUrl);
+  }
 
   if (!videoUrl) {
     console.error("No video URL found in Frontify data");
@@ -50,6 +82,7 @@ export default function FrontifyVideo({ videoData }: { videoData: FrontifyVideoD
         >
           Your browser does not support the video tag.
         </video>
+        <p className="text-gray-500 text-sm text-center mt-2">{videoTitle}</p>
       </div>
     </section>
   );

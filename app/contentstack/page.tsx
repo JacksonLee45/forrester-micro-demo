@@ -1,19 +1,30 @@
-import { draftMode } from "next/headers";
-import { getWebsiteContent } from "@/lib/api";
-import { getFirstVideo } from "@/lib/video-api";
-import ProductGallery from "./product-gallery";
-import FrontifyVideo from "./frontify-video";
+import { getWebsiteContent, getFirstVideo } from "@/lib/contentstack-api";
+import ProductGallery from "@/app/product-gallery";
+import FrontifyVideo from "@/app/frontify-video";
 import Link from "next/link";
 
-export default async function Page() {
-  const { isEnabled } = await draftMode();
-  const content = await getWebsiteContent(isEnabled);
-  const video = await getFirstVideo(isEnabled);
+export default async function ContentstackPage() {
+  const content = await getWebsiteContent();
+  const video = await getFirstVideo();
+
+  console.log("=== CONTENTSTACK PAGE ===");
+  console.log("Content:", content);
+  console.log("Video:", video);
+  console.log("Has video:", !!video);
 
   if (!content) {
     return (
       <div className="bg-black min-h-screen text-white flex items-center justify-center">
-        <p>Loading content...</p>
+        <div className="text-center">
+          <p className="text-xl mb-4">No content found in Contentstack</p>
+          <p className="text-gray-500 mb-8">Please set up your Contentstack content models and entries</p>
+          <Link 
+            href="/"
+            className="border border-white text-white px-6 py-2 text-sm uppercase tracking-wider hover:bg-white hover:text-black transition-colors duration-300"
+          >
+            Back to Contentful
+          </Link>
+        </div>
       </div>
     );
   }
@@ -32,22 +43,22 @@ export default async function Page() {
             />
           </div>
           <div className="flex gap-4">
-            <div className="text-white px-4 py-2 text-sm uppercase tracking-wider border-b-2 border-white">
-              Contentful
-            </div>
             <Link 
-              href="/contentstack" 
+              href="/" 
               className="text-gray-400 hover:text-white transition-colors duration-300 px-4 py-2 text-sm uppercase tracking-wider"
             >
-              Contentstack
+              Contentful
             </Link>
+            <div className="text-white px-4 py-2 text-sm uppercase tracking-wider border-b-2 border-white">
+              Contentstack
+            </div>
           </div>
         </div>
       </nav>
       <div className="container mx-auto px-5 pb-20">
         <section className="text-center mt-16 mb-24">
-          <div className="inline-block mb-6 px-4 py-1 bg-blue-900/30 border border-blue-500/50 rounded-full">
-            <span className="text-blue-300 text-xs uppercase tracking-wider">Powered by Contentful</span>
+          <div className="inline-block mb-6 px-4 py-1 bg-purple-900/30 border border-purple-500/50 rounded-full">
+            <span className="text-purple-300 text-xs uppercase tracking-wider">Powered by Contentstack</span>
           </div>
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-none text-white uppercase mb-8">
             {content.heading || "Products"}
